@@ -1,0 +1,16 @@
+.DS_Store
+*.sw?
+.#*
+*#
+*~
+.classpath
+.project
+.settings
+bin
+build
+target
+dependency-reduced-pom.xml
+.idea
+*.iml
+out
+README.html
