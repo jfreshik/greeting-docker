@@ -44,8 +44,6 @@ docker {
 
 > intellij Gradle Tool Window -> Tasks -> docker -> docker 
 
-3. push docker image
-
 
 ## Dockerfile
 ```
@@ -58,6 +56,16 @@ COPY ${DEPENDENCY}/META-INF /app/META-INF
 COPY ${DEPENDENCY}/BOOT-INF/classes /app
 ENTRYPOINT ["java","-cp","app:app/lib/*","hello.GreetingApplication"]
 ```
+
+## Run docker container
+
+도커 이미지 실행(docker run jfreshik/greeting-docker)
+로컬 포트와 Dockerfile 에 EXPOSE 로 설정한 컨테이너포드 연결 (-p 8080:8080) 
+> $ docker run -p 8080:8080 jfreshik/greeting-docker
+
+
+도커 실행 시 환경변수 전달 (-e) => spring profile 적용
+> $ docker run -e "SPRING_PROFILES_ACTIVE=dev" -p 8080:8080 jfreshik/greeting-docker 
 
 ## References
 spring-boot with docker:
