@@ -1,2 +1,19 @@
 language: java
 jdk: oraclejdk8
+sudo: required
+services:
+  - docker
+
+env:
+  global:
+    - DOCKER_USER=jfreshik
+    - secure: AtIzjr23nOvBKAjJ+iCyui6MsLeX+fvygq3usiG/Bq746D7ki+wl0/laNrIJ/iVCVy51R+Uxg4cWQZDxZryUqioxjFxQQerMxZ4xDb+V1fh6PKN3cAf1pDW5rWCGBBkX/iuS5kY9WwLvzlJi7+gxG948hfLc9frmiybeaYoNSu6qQ1DkaKGsyMwNqLPnZFCXN6dsy9yM66BEJs6e7PFtJk4EvByMAWpMb2ME8VFaq738MX6aQrTPOZYqpJvtMtXUm2UROYu/RFlMTIUa1XvIFvcEWpmbBJi543HiSUd5unmu9sntVYVc20LGchgZBg08FL3ie2xQm02amqAUSGKmptd3dXiEUngHmeEI+oXdPeg6GSEQhkKnb6n1owD/uN1HGrPQ9AGiQm4Qcp/jUgxIIQJJ/3Y+GhjFAnd1WMWmHYiUf3ai8ZwLHmqwwGimIyxrDr4aj7b7nvAJfWh2Pipcr+04hR18J/tL2vkfHIS0rsJ3Upjz9Zy8qZunN4lH5xgVVIsdY2rAHsMvL9C43XsA3BZ9cciF4z3ebD0TzhzawMbUbPyfCApf9xQknPmQ/gI17hUCFeBK8Vtwp9i3vXM0tcNTUfDgLVsPqGmsGyzT8AbAlcZuQ42mD0doXaDx6vFDDVAYPCpjZNP7jdkfqxGi6AGhpdEM1TSdh5jvYXrKuho=
+    - COMMIT=${TRAVIS_COMMIT::8}
+
+after_success:
+  - echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
+  - export IMAGE_NAME=jfreshik/greeting-docker
+  - echo $IMAGE_NAME
+  - "./gradlew docker"
+  - docker tag $IMAGE_NAME $IMAGE_NAME:latest
+  - docker push $IMAGE_NAME:latest
