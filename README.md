@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/jfreshik/greeting-docker.svg?branch=master)](https://travis-ci.com/jfreshik/greeting-docker)
+
 ## SpringBoot docker build with gradle
 
 1. build.gradle setup
